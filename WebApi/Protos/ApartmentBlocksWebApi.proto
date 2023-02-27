@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "TestTask";
+
+package ApartmentBlocksWebApi;
+
+service ApartmentBlocksWebApi {
+	rpc AddApartmentBlock(AddApartmentBlock_request) returns (google.protobuf.Empty);
+	rpc AddTenant(AddTenant_request) returns (google.protobuf.Empty);
+	rpc ChangeTenantApartmentBlock(ChangeTenantApartmentBlock_request) returns (google.protobuf.Empty);
+	rpc DeleteTenant(DeleteTenant_request) returns (google.protobuf.Empty);
+	rpc DeleteApartmentBlock(DeleteApartmentBlock_request) returns (google.protobuf.Empty);
+
+	rpc GetABWith_MaxCountTenants(google.protobuf.Empty) returns (GetABWith_response);
+	rpc GetABWith_OldestTenant(google.protobuf.Empty) returns (stream GetABWith_response);
+
+	rpc GetCountOfTenantsInABStreet(ABStreet_request) returns (ABStreet_response);
+	rpc GetAvgAgeInABStreet(ABStreet_request) returns (ABStreet_response);
+}
+
+message ApartmentBlock {
+	uint32 id = 1;
+	string City = 2;
+	string Street = 3;
+	uint32 number = 4;
+	
+}
+
+message Tenant {
+	uint32 id = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	uint32 Age = 4;
+}
+
+message AddApartmentBlock_request {
+	ApartmentBlock ApartmentBlockInfo = 1;
+}
+
+message AddTenant_request {
+    Tenant TenantInfo = 1;
+}
+
+message ChangeTenantApartmentBlock_request {
+	Tenant TenantInfo = 1;
+    ApartmentBlock ApartmentBlockInfo = 2;
+}
+
+message DeleteTenant_request {
+	Tenant TenantInfo = 1;
+}
+
+message DeleteApartmentBlock_request {
+	ApartmentBlock ApartmentBlock_ToDelete = 1;
+	ApartmentBlock ApartmentBlock_ReplaceTenantsTo = 2;
+}
+
+message GetABWith_response {
+	ApartmentBlock ApartmentBlockInfo = 1;
+}
+
+message ABStreet_request {
+	ApartmentBlock ApartmentBlockStreet = 1;
+}
+
+message ABStreet_response {
+	string Result = 1;
+}
