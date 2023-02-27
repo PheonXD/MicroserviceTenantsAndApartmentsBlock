@@ -1,0 +1,4 @@
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Design
+NLog.Web.AspNetCore
+Npgsql.EntityFrameworkCore.PostgreSQL
